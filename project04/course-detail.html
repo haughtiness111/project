@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>课程详情 - 教育软件需求分析</title>
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
+    <link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/2.4.4/weui.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <div class="weui-navbar">
+        <a href="course.html" class="weui-navbar__back">
+            <i class="weui-icon-back"></i>
+            <span>返回</span>
+        </a>
+        <div class="weui-navbar__title">教育软件需求分析</div>
+    </div>
+
+    <!-- 视频播放器容器 - 使用固定大小的包装器 -->
+    <div class="video-wrapper">
+        <div class="video-container">
+            <video id="player" playsinline controls>
+                <source src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-576p.mp4" type="video/mp4">
+            </video>
+        </div>
+    </div>
+
+    <!-- 课程内容 -->
+    <div class="course-content">
+        <!-- 课程信息 -->
+        <div class="course-info-panel">
+            <h2 class="course-title">教育软件需求分析</h2>
+            <div class="course-meta">
+                <span class="teacher">讲师：王教授</span>
+                <span class="duration">总时长：45分钟</span>
+                <span class="views">观看次数：1,245</span>
+            </div>
+            <div class="course-description">
+                本课程介绍教育软件需求分析的核心概念和方法，帮助学生掌握需求获取、分析和规格说明书编写的技能。通过案例学习，了解如何进行用户访谈、原型设计和需求验证。
+            </div>
+        </div>
+
+        <!-- 课程章节 -->
+        <div class="weui-panel">
+            <div class="weui-panel__hd">
+                <span>课程章节</span>
+                <div class="panel-actions">
+                    <button class="btn-download" id="downloadNotes">
+                        <i class="download-icon"></i>下载笔记
+                    </button>
+                </div>
+            </div>
+            <div class="weui-panel__bd">
+                <div class="chapter-list">
+                    <div class="chapter-item playing">
+                        <div class="time">00:00</div>
+                        <div class="title">第一章：教育软件需求分析概述</div>
+                        <div class="chapter-actions">
+                            <span class="chapter-duration">5:30</span>
+                        </div>
+                    </div>
+                    <div class="chapter-item">
+                        <div class="time">05:30</div>
+                        <div class="title">第二章：需求获取方法</div>
+                        <div class="chapter-actions">
+                            <span class="chapter-duration">7:15</span>
+                        </div>
+                    </div>
+                    <div class="chapter-item">
+                        <div class="time">12:45</div>
+                        <div class="title">第三章：用户场景分析</div>
+                        <div class="chapter-actions">
+                            <span class="chapter-duration">5:35</span>
+                        </div>
+                    </div>
+                    <div class="chapter-item">
+                        <div class="time">18:20</div>
+                        <div class="title">第四章：功能需求设计</div>
+                        <div class="chapter-actions">
+                            <span class="chapter-duration">6:50</span>
+                        </div>
+                    </div>
+                    <div class="chapter-item">
+                        <div class="time">25:10</div>
+                        <div class="title">第五章：非功能需求分析</div>
+                        <div class="chapter-actions">
+                            <span class="chapter-duration">10:00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 相关课程推荐 -->
+        <div class="weui-panel">
+            <div class="weui-panel__hd">相关课程推荐</div>
+            <div class="weui-panel__bd">
+                <div class="related-courses">
+                    <a href="#" class="related-course-item">
+                        <div class="related-course-image">
+                            <img src="images/案例.jpeg" alt="教育软件设计案例分析">
+                        </div>
+                        <div class="related-course-title">教育软件设计案例分析</div>
+                    </a>
+                    <a href="#" class="related-course-item">
+                        <div class="related-course-image">
+                            <img src="images/测试.jpeg" alt="教育软件测试方法">
+                        </div>
+                        <div class="related-course-title">教育软件测试方法</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部工具栏 -->
+    <div class="course-toolbar">
+        <a href="course.html" class="toolbar-item">
+            <i class="toolbar-icon back-icon"></i>
+            <span>返回</span>
+        </a>
+        <button class="toolbar-item" id="toggleNotes">
+            <i class="toolbar-icon notes-icon"></i>
+            <span>笔记</span>
+        </button>
+        <button class="toolbar-item" id="toggleSpeed">
+            <i class="toolbar-icon speed-icon"></i>
+            <span>1.0x</span>
+        </button>
+        <button class="toolbar-item" id="toggleFullscreen">
+            <i class="toolbar-icon fullscreen-icon"></i>
+            <span>全屏</span>
+        </button>
+    </div>
+
+    <!-- 笔记面板 (默认隐藏) -->
+    <div class="notes-panel" style="display: none;">
+        <div class="notes-header">
+            <h3>课程笔记</h3>
+            <button class="close-notes">&times;</button>
+        </div>
+        <div class="notes-content">
+            <textarea placeholder="在这里记录你的笔记..."></textarea>
+        </div>
+        <div class="notes-footer">
+            <button class="save-notes">保存笔记</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 初始化播放器，设置固定大小
+            const player = new Plyr('#player', {
+                controls: [
+                    'play-large',
+                    'play',
+                    'progress',
+                    'current-time',
+                    'duration',
+                    'mute',
+                    'volume',
+                    'settings',
+                    'fullscreen'
+                ],
+                ratio: '16:9', // 固定宽高比
+                responsive: false, // 禁用响应式行为
+                clickToPlay: true,
+                resetOnEnd: true
+            });
+
+            // 强制设置固定大小的函数
+            function enforceFixedSize() {
+                const videoContainer = document.querySelector('.video-container');
+                const videoElement = document.querySelector('#player');
+                const plyrContainer = document.querySelector('.plyr');
+
+                if (!document.fullscreenElement) {
+                    // 非全屏模式下强制固定大小
+                    [videoContainer, videoElement, plyrContainer].forEach(element => {
+                        if (element) {
+                            element.style.width = '640px';
+                            element.style.height = '360px';
+                            element.style.maxWidth = '640px';
+                            element.style.maxHeight = '360px';
+                            element.style.minWidth = '640px';
+                            element.style.minHeight = '360px';
+                        }
+                    });
+                }
+            }
+
+            // 初始设置固定大小
+            enforceFixedSize();
+
+            // 监听播放器事件
+            player.on('ready', enforceFixedSize);
+            player.on('exitfullscreen', enforceFixedSize);
+
+            // 监听窗口大小变化
+            window.addEventListener('resize', enforceFixedSize);
+
+            // 点击章节跳转到对应时间点
+            $('.chapter-item').on('click', function() {
+                const timeStr = $(this).find('.time').text();
+                const [minutes, seconds] = timeStr.split(':').map(Number);
+                const timeInSeconds = minutes * 60 + seconds;
+                
+                player.currentTime = timeInSeconds;
+                $('.chapter-item').removeClass('playing');
+                $(this).addClass('playing');
+            });
+
+            // 监听视频播放进度，更新当前播放章节
+            player.on('timeupdate', () => {
+                const currentTime = player.currentTime;
+                $('.chapter-item').each(function() {
+                    const timeStr = $(this).find('.time').text();
+                    const [minutes, seconds] = timeStr.split(':').map(Number);
+                    const chapterTime = minutes * 60 + seconds;
+                    
+                    if (currentTime >= chapterTime) {
+                        $('.chapter-item').removeClass('playing');
+                        $(this).addClass('playing');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

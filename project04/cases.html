@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>案例列表</title>
+    <link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/2.4.4/weui.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* 表格容器样式 */
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin-top: 46px; /* 为顶部导航栏留出空间 */
+            padding: 15px;
+        }
+
+        /* 表格样式 */
+        .cases-table {
+            width: 100%;
+            min-width: 600px; /* 确保在小屏幕上可以横向滚动 */
+            border-collapse: collapse;
+            background-color: #fff;
+            border-spacing: 0;
+        }
+
+        /* 第一行数据与表头之间的间距 */
+        .cases-table tbody tr:first-child td {
+            padding-top: 45px;
+        }
+
+        .cases-table th,
+        .cases-table td {
+            padding: 10px 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cases-table th {
+            background-color: #f8f8f8;
+            font-weight: bold;
+            color: #333;
+            position: sticky;
+            top: 46px; /* 与顶部导航栏对齐 */
+        }
+
+        .cases-table tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        /* 序号列宽度 */
+        .cases-table th:first-child,
+        .cases-table td:first-child {
+            width: 60px;
+            text-align: center;
+        }
+
+        /* 学号列等宽 */
+        .cases-table th:nth-child(3),
+        .cases-table td:nth-child(3) {
+            width: 120px;
+        }
+
+        /* 作品列样式 */
+        .work-link {
+            color: #576b95;
+            text-decoration: none;
+        }
+
+        .work-link:hover {
+            text-decoration: underline;
+        }
+
+        /* 顶部导航栏固定定位 */
+        .weui-navbar {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 100;
+            background-color: #fff;
+        }
+
+        /* 预览按钮样式 */
+        .preview-btn {
+            color: #576b95;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        .preview-btn:hover {
+            background-color: #f0f7ff;
+            text-decoration: none;
+        }
+
+        /* 预览对话框样式 */
+        .weui-dialog {
+            max-width: 90%;
+            width: 900px;
+            max-height: 90vh;
+            border-radius: 8px;
+            background: #fff;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .weui-dialog__bd {
+            padding: 1em;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+            color: #333;
+            font-size: 14px;
+            line-height: 1.6;
+            word-wrap: break-word;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* 加载中状态样式 */
+        .loading-text {
+            color: #888;
+            font-size: 14px;
+            text-align: center;
+            padding: 10px;
+        }
+
+        /* 预览内容样式 */
+        #previewContent {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #333;
+            padding: 10px;
+        }
+
+        #previewContent h1 {
+            font-size: 24px;
+            margin-top: 1.2em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+            color: #222;
+        }
+
+        #previewContent h2 {
+            font-size: 20px;
+            margin-top: 1.1em;
+            margin-bottom: 0.7em;
+            font-weight: 500;
+            color: #333;
+        }
+
+        #previewContent h3 {
+            font-size: 18px;
+            margin-top: 1em;
+            margin-bottom: 0.6em;
+            font-weight: 500;
+            color: #444;
+        }
+
+        #previewContent p {
+            margin-bottom: 1.2em;
+            text-align: justify;
+        }
+
+        #previewContent img {
+            max-width: 100%;
+            height: auto;
+            margin: 10px auto;
+            display: block;
+            border-radius: 4px;
+        }
+
+        #previewContent table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 15px 0;
+        }
+
+        #previewContent table, #previewContent th, #previewContent td {
+            border: 1px solid #ddd;
+        }
+
+        #previewContent th, #previewContent td {
+            padding: 8px 12px;
+            text-align: left;
+        }
+
+        #previewContent th {
+            background-color: #f5f5f5;
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <div class="weui-navbar">
+        <a href="index.html" class="weui-navbar__back">
+            <i class="weui-icon-back"></i>
+            <span>返回</span>
+        </a>
+        <div class="weui-navbar__title">案例列表</div>
+    </div>
+
+    <!-- 表格容器 -->
+    <div class="table-container">
+        <table class="cases-table">
+            <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>姓名</th>
+                    <th>学号</th>
+                    <th>内容预览</th>
+                    <th>作品</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>张三</td>
+                    <td>2024001</td>
+                    <td><a href="#" class="work-link">智能题库系统</a></td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>李四</td>
+                    <td>2024002</td>
+                    <td><a href="#" class="work-link">在线实验平台</a></td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>王五</td>
+                    <td>2024003</td>
+                    <td><a href="#" class="work-link">编程学习助手</a></td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>赵六</td>
+                    <td>2024004</td>
+                    <td><a href="#" class="work-link">虚拟实验室</a></td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>钱七</td>
+                    <td>2024005</td>
+                    <td><a href="#" class="work-link">教学资源管理系统</a></td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>孙八</td>
+                    <td>2024006</td>
+                    <td><a href="#" class="work-link">在线评测系统</a></td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>周九</td>
+                    <td>2024007</td>
+                    <td><a href="#" class="work-link">课程管理平台</a></td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td>吴十</td>
+                    <td>2024008</td>
+                    <td><a href="#" class="work-link">学习进度追踪器</a></td>
+                </tr>
+                <tr>
+                    <td>9</td>
+                    <td>郑十一</td>
+                    <td>2024009</td>
+                    <td><a href="#" class="work-link">知识图谱系统</a></td>
+                </tr>
+                <tr>
+                    <td>10</td>
+                    <td>王十二</td>
+                    <td>2024010</td>
+                    <td><a href="#" class="work-link">在线答疑系统</a></td>
+                </tr>
+                <tr>
+                    <td>11</td>
+                    <td>李十三</td>
+                    <td>2024011</td>
+                    <td><a href="#" class="work-link">作业批改助手</a></td>
+                </tr>
+                <tr>
+                    <td>12</td>
+                    <td>张十四</td>
+                    <td>2024012</td>
+                    <td><a href="#" class="work-link">教学反馈系统</a></td>
+                </tr>
+                <tr>
+                    <td>13</td>
+                    <td>刘十五</td>
+                    <td>2024013</td>
+                    <td><a href="#" class="work-link">课程评价平台</a></td>
+                </tr>
+                <tr>
+                    <td>14</td>
+                    <td>陈十六</td>
+                    <td>2024014</td>
+                    <td><a href="#" class="work-link">学习分析工具</a></td>
+                </tr>
+                <tr>
+                    <td>15</td>
+                    <td>杨十七</td>
+                    <td>2024015</td>
+                    <td><a href="#" class="work-link">在线考试系统</a></td>
+                </tr>
+                <tr>
+                    <td>16</td>
+                    <td>黄十八</td>
+                    <td>2024016</td>
+                    <td><a href="#" class="work-link">教学资源共享平台</a></td>
+                </tr>
+                <tr>
+                    <td>17</td>
+                    <td>赵十九</td>
+                    <td>2024017</td>
+                    <td><a href="#" class="work-link">学习路径规划器</a></td>
+                </tr>
+                <tr>
+                    <td>18</td>
+                    <td>吴二十</td>
+                    <td>2024018</td>
+                    <td><a href="#" class="work-link">课程推荐系统</a></td>
+                </tr>
+                <tr>
+                    <td>19</td>
+                    <td>郑二一</td>
+                    <td>2024019</td>
+                    <td><a href="#" class="work-link">在线讨论平台</a></td>
+                </tr>
+                <tr>
+                    <td>20</td>
+                    <td>王二二</td>
+                    <td>2024020</td>
+                    <td><a href="#" class="work-link">学习笔记系统</a></td>
+                </tr>
+                <tr>
+                    <td>21</td>
+                    <td>李二三</td>
+                    <td>2024021</td>
+                    <td><a href="#" class="work-link">知识点导航器</a></td>
+                </tr>
+                <tr>
+                    <td>22</td>
+                    <td>张二四</td>
+                    <td>2024022</td>
+                    <td><a href="#" class="work-link">教学互动平台</a></td>
+                </tr>
+                <tr>
+                    <td>23</td>
+                    <td>刘二五</td>
+                    <td>2024023</td>
+                    <td><a href="#" class="work-link">作业管理系统</a></td>
+                </tr>
+                <tr>
+                    <td>24</td>
+                    <td>陈二六</td>
+                    <td>2024024</td>
+                    <td><a href="#" class="work-link">学习效果分析器</a></td>
+                </tr>
+                <tr>
+                    <td>25</td>
+                    <td>杨二七</td>
+                    <td>2024025</td>
+                    <td><a href="#" class="work-link">在线教学助手</a></td>
+                </tr>
+                <tr>
+                    <td>26</td>
+                    <td>黄二八</td>
+                    <td>2024026</td>
+                    <td><a href="#" class="work-link">课程内容管理器</a></td>
+                </tr>
+                <tr>
+                    <td>27</td>
+                    <td>赵二九</td>
+                    <td>2024027</td>
+                    <td><a href="#" class="work-link">学习进度监控系统</a></td>
+                </tr>
+                <tr>
+                    <td>28</td>
+                    <td>吴三十</td>
+                    <td>2024028</td>
+                    <td><a href="#" class="work-link">教学资源检索器</a></td>
+                </tr>
+                <tr>
+                    <td>29</td>
+                    <td>郑三一</td>
+                    <td>2024029</td>
+                    <td><a href="#" class="work-link">在线练习系统</a></td>
+                </tr>
+                <tr>
+                    <td>30</td>
+                    <td>王三二</td>
+                    <td>2024030</td>
+                    <td><a href="#" class="work-link">学习行为分析平台</a></td>
+                </tr>
+                <tr>
+                    <td>31</td>
+                    <td>李三三</td>
+                    <td>2024031</td>
+                    <td><a href="#" class="work-link">教学评估系统</a></td>
+                </tr>
+                <tr>
+                    <td>32</td>
+                    <td>张三四</td>
+                    <td>2024032</td>
+                    <td><a href="#" class="work-link">课程反馈平台</a></td>
+                </tr>
+                <tr>
+                    <td>33</td>
+                    <td>刘三五</td>
+                    <td>2024033</td>
+                    <td><a href="#" class="work-link">学习数据分析系统</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+    
+    <!-- 添加WeUI的JavaScript文件 -->
+    <script src="https://res.wx.qq.com/open/libs/weuijs/1.2.1/weui.min.js"></script>
+
+    <!-- 添加预览对话框 -->
+    <div class="js_dialog" id="previewDialog" style="display: none;">
+        <div class="weui-mask"></div>
+        <div class="weui-dialog">
+            <div class="weui-dialog__hd" style="padding: 20px 24px; border-bottom: 1px solid #eee;">
+                <strong class="weui-dialog__title" style="font-size: 18px; color: #333;">文档预览</strong>
+            </div>
+            <div class="weui-dialog__bd" id="previewContent" style="max-height: 600px; overflow-y: auto; text-align: left; padding: 20px;">
+            </div>
+            <div class="weui-dialog__ft" style="padding: 16px 24px; border-top: 1px solid #eee;">
+                <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_primary" 
+                   style="font-size: 16px; color: #576b95; padding: 8px 24px; border-radius: 4px; transition: all 0.3s;" 
+                   onmouseover="this.style.backgroundColor='#f0f7ff'" 
+                   onmouseout="this.style.backgroundColor='transparent'"
+                   onclick="closePreview()">关闭预览</a>
+            </div>
+        </div>
+    </div>
+    <script>
+        // 案例数据
+        const cases = [
+            { id: "1032012326032", name: "秦心影", filename: "1032012326032秦心影.docx" },
+            { id: "1032012426027", name: "刘沁", filename: "1032012426027刘沁.docx" },
+            { id: "1032012426028", name: "黄倩", filename: "1032012426028黄倩.docx" },
+            { id: "1032012426029", name: "杨骞", filename: "1032012426029杨骞.docx" },
+            { id: "1032012426030", name: "李冉", filename: "1032012426030李冉.docx" },
+            { id: "1032012426031", name: "李博妍", filename: "1032012426031李博妍.docx" },
+            { id: "1032012426032", name: "刘星畅", filename: "1032012426032刘星畅.docx" },
+            { id: "1032012426033", name: "程佳", filename: "1032012426033程佳.docx" },
+            { id: "1032012426034", name: "周彤", filename: "1032012426034周彤.docx" },
+            { id: "1032012426035", name: "张雨琴", filename: "1032012426035张雨琴.docx" },
+            { id: "1032012426036", name: "洪子怡", filename: "1032012426036洪子怡 .docx" },
+            { id: "1032012426037", name: "梅叶词", filename: "1032012426037梅叶词.docx" },
+            { id: "1032012426038", name: "任珂", filename: "1032012426038任珂.docx" },
+            { id: "1032012426039", name: "任楷文", filename: "1032012426039任楷文.docx" },
+            { id: "1032012426040", name: "赵泽楠", filename: "1032012426040赵泽楠.docx" },
+            { id: "1032012426041", name: "杨怡博", filename: "1032012426041杨怡博.docx" },
+            { id: "1032012426042", name: "高楠楠", filename: "1032012426042高楠楠.docx" },
+            { id: "1032012426043", name: "徐通润", filename: "1032012426043徐通润.docx" },
+            { id: "1032012426044", name: "武玉曌", filename: "1032012426044武玉曌.docx" },
+            { id: "1032012426045", name: "金雨", filename: "1032012426045金雨.docx" },
+            { id: "1032012426046", name: "夏天驰", filename: "1032012426046夏天驰.doc" },
+            { id: "1032012426047", name: "王诗琪", filename: "1032012426047王诗琪.docx" },
+            { id: "1032012426048", name: "庄媛媛", filename: "1032012426048庄媛媛.docx" },
+            { id: "1032012426049", name: "康欣", filename: "1032012426049康欣.docx" },
+            { id: "1032012426050", name: "陈新元", filename: "1032012426050陈新元.docx" },
+            { id: "1032012426051", name: "陈晨", filename: "1032012426051陈晨.docx" },
+            { id: "1032012426052", name: "司宜臻", filename: "1032012426052司宜臻.docx" },
+            { id: "1032012426053", name: "杨君", filename: "1032012426053杨君.docx" },
+            { id: "1032012426054", name: "孙伶娜", filename: "1032012426054孙伶娜.docx" },
+            { id: "1032012426055", name: "王诗昂", filename: "1032012426055王诗昂.doc" },
+            { id: "1032012426056", name: "杨沅禧", filename: "1032012426056杨沅禧.docx" },
+            { id: "1032012426057", name: "刘思宇", filename: "1032012426057刘思宇.docx" },
+            { id: "1032012426058", name: "卞枫韵", filename: "1032012426058卞枫韵.docx" }
+        ];
+
+        $(document).ready(function() {
+            // 生成表格内容
+            const tbody = $('.cases-table tbody');
+            tbody.empty(); // 清空现有内容
+
+            cases.forEach((item, index) => {
+                const tr = $('<tr>');
+                tr.append(`<td>${index + 1}</td>`);
+                tr.append(`<td>${item.name}</td>`);
+                tr.append(`<td>${item.id}</td>`);
+                tr.append(`<td><a href="javascript:;" class="preview-btn" onclick="previewDoc('resources/${item.filename}')">预览</a></td>`);
+                tr.append(`<td><a href="resources/${item.filename}" class="work-link" target="_blank">下载</a></td>`);
+                tbody.append(tr);
+            });
+
+            // 点击下载链接时的处理
+            $('.work-link').on('click', function(e) {
+                const filename = $(this).attr('href').split('/').pop();
+                weui.toast(`正在下载: ${filename}`, 1500);
+            });
+        });
+
+        // 预览文档
+        async function previewDoc(url) {
+            try {
+                // 显示加载提示
+                weui.loading('正在加载文档...');
+                
+                // 获取文档内容
+                const response = await fetch(url);
+                const arrayBuffer = await response.arrayBuffer();
+                
+                // 使用mammoth.js转换Word文档为HTML
+                const result = await mammoth.convertToHtml({arrayBuffer: arrayBuffer});
+                
+                // 关闭加载提示
+                weui.loading().hide();
+                
+                // 显示预览对话框
+                $('#previewContent').html(result.value);
+                $('#previewDialog').fadeIn(200);
+                
+            } catch (error) {
+                weui.loading().hide();
+                weui.alert('无法加载文档: ' + error.message);
+            }
+        }
+
+        // 关闭预览对话框
+        function closePreview() {
+            $('#previewDialog').fadeOut(200);
+            $('#previewContent').html('');
+        }
+    </script>
+</body>
+</html>

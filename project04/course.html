@@ -1,0 +1,101 @@
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>课程列表 - AI辅助教育软件开发</title>
+    <link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/2.4.4/weui.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <div class="weui-navbar">
+        <a href="index.html" class="weui-navbar__back">
+            <i class="weui-icon-back"></i>
+            <span>返回</span>
+        </a>
+        <div class="weui-navbar__title">课程列表</div>
+    </div>
+    
+    <!-- 顶部轮播图 -->
+    <div class="swiper-container course-swiper">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <img src="images/01.jpeg" alt="教育软件开发">
+            </div>
+            <div class="swiper-slide">
+                <img src="images/02.jpeg" alt="AI辅助开发">
+            </div>
+            <div class="swiper-slide">
+                <img src="images/03.jpeg" alt="软件工程实践">
+            </div>
+        </div>
+        <div class="swiper-pagination"></div>
+    </div>
+
+    <!-- 课程列表 -->
+    <div class="course-list">
+        <div class="weui-panel weui-panel_access">
+            <div class="weui-panel__hd">教育软件工程课程</div>
+            <div class="weui-panel__bd">
+                <!-- 课程1 -->
+                <a href="course-detail.html" class="weui-media-box weui-media-box_appmsg">
+                    <div class="weui-media-box__hd">
+                        <img class="weui-media-box__thumb" src="images/AI开发实践.jpg" alt="需求分析">
+                    </div>
+                    <div class="weui-media-box__bd">
+                        <h4 class="weui-media-box__title">教育软件需求分析 <span class="weui-badge">可播放</span></h4>
+                        <p class="weui-media-box__desc">学习教育软件需求获取、分析和规格说明书编写的方法，掌握用户访谈、原型设计等技能。</p>
+                    </div>
+                </a>
+                <!-- 课程2 -->
+                <a class="weui-media-box weui-media-box_appmsg">
+                    <div class="weui-media-box__hd">
+                        <img class="weui-media-box__thumb" src="images/软件教育原则.jpg" alt="设计原则">
+                    </div>
+                    <div class="weui-media-box__bd">
+                        <h4 class="weui-media-box__title">教育软件设计原则</h4>
+                        <p class="weui-media-box__desc">探讨教育软件设计的核心原则，包括用户体验、交互设计、界面设计等关键要素。</p>
+                    </div>
+                </a>
+                <!-- 课程3 -->
+                <a class="weui-media-box weui-media-box_appmsg">
+                    <div class="weui-media-box__hd">
+                        <img class="weui-media-box__thumb" src="images/AI开发实践.jpg" alt="开发方法">
+                    </div>
+                    <div class="weui-media-box__bd">
+                        <h4 class="weui-media-box__title">教育软件开发方法</h4>
+                        <p class="weui-media-box__desc">介绍教育软件开发的主流方法和技术栈，包括前端开发、后端开发、数据库设计等。</p>
+                    </div>
+                </a>
+                <!-- 课程4 -->
+                <a class="weui-media-box weui-media-box_appmsg">
+                    <div class="weui-media-box__hd">
+                        <img class="weui-media-box__thumb" src="images/软件教育原则.jpg" alt="测试评估">
+                    </div>
+                    <div class="weui-media-box__bd">
+                        <h4 class="weui-media-box__title">教育软件测试与评估</h4>
+                        <p class="weui-media-box__desc">学习教育软件的测试方法、评估标准和质量保证体系，确保软件的可用性和教育效果。</p>
+                    </div>
+                </a>
+                <!-- 课程5 -->
+                <a class="weui-media-box weui-media-box_appmsg">
+                    <div class="weui-media-box__hd">
+                        <img class="weui-media-box__thumb" src="images/AI开发实践.jpg" alt="AI应用">
+                    </div>
+                    <div class="weui-media-box__bd">
+                        <h4 class="weui-media-box__title">AI在教育软件中的应用</h4>
+                        <p class="weui-media-box__desc">探索AI技术在教育软件中的创新应用，包括智能推荐、自适应学习、智能评估等。</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部返回首页按钮 -->
+    <div class="back-button">
+        <a href="index.html" class="weui-btn weui-btn_primary">返回首页</a>
+    </div>
+
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

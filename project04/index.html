@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AI辅助教育软件开发</title>
+    <!-- WeUI CSS -->
+    <link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/2.4.4/weui.min.css">
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <!-- 自定义样式 -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 轮播图部分 -->
+        <div class="swiper-section">
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <img src="images/01.jpeg" alt="AI教育">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="images/02.jpeg" alt="软件开发">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="images/03.jpeg" alt="实践教学">
+                    </div>
+                </div>
+                <!-- 分页器 -->
+                <div class="swiper-pagination"></div>
+                <!-- 导航按钮 -->
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+            </div>
+        </div>
+
+        <!-- 功能按钮区域 -->
+        <div class="weui-grids">
+            <a href="course.html" class="weui-grid">
+                <div class="weui-grid__icon">
+                    <img src="images/课程.jpeg" alt="课程">
+                </div>
+                <p class="weui-grid__label">课程</p>
+            </a>
+            <a href="cases.html" class="weui-grid">
+                <div class="weui-grid__icon">
+                    <img src="images/案例.jpeg" alt="案例">
+                </div>
+                <p class="weui-grid__label">案例</p>
+            </a>
+            <a href="test.html" class="weui-grid">
+                <div class="weui-grid__icon">
+                    <img src="images/测试.jpeg" alt="测试">
+                </div>
+                <p class="weui-grid__label">测试</p>
+            </a>
+            <a href="qa.html" class="weui-grid">
+                <div class="weui-grid__icon">
+                    <img src="images/答疑.jpeg" alt="答疑">
+                </div>
+                <p class="weui-grid__label">答疑</p>
+            </a>
+        </div>
+
+        <!-- 课程列表 -->
+        <div class="course-list">
+            <h3 class="weui-cells__title">推荐课程</h3>
+            <div class="weui-cells">
+                <a class="weui-cell weui-cell_access" href="javascript:;">
+                    <div class="weui-cell__hd">
+                        <img src="images/AI开发实践.jpg" alt="课程1" style="width:40px;margin-right:16px;display:block">
+                    </div>
+                    <div class="weui-cell__bd">
+                        <p>AI助手开发实践</p>
+                        <p style="font-size: 13px;color: #888888;">掌握AI助手开发的核心技能</p>
+                    </div>
+                    <div class="weui-cell__ft"></div>
+                </a>
+                <a class="weui-cell weui-cell_access" href="javascript:;">
+                    <div class="weui-cell__hd">
+                        <img src="images/软件教育原则.jpg" alt="课程2" style="width:40px;margin-right:16px;display:block">
+                    </div>
+                    <div class="weui-cell__bd">
+                        <p>教育软件设计原则</p>
+                        <p style="font-size: 13px;color: #888888;">深入理解教育软件开发要点</p>
+                    </div>
+                    <div class="weui-cell__ft"></div>
+                </a>
+            </div>
+        </div>
+
+        <!-- 底部导航栏 -->
+        <div class="weui-tabbar">
+            <a href="index.html" class="weui-tabbar__item weui-bar__item_on">
+                <div class="weui-tabbar__icon">
+                    <img src="images/download/首页_home.svg" alt="首页">
+                </div>
+                <p class="weui-tabbar__label">首页</p>
+            </a>
+            <a href="interaction.html" class="weui-tabbar__item">
+                <div class="weui-tabbar__icon">
+                    <img src="images/download/download/圆形连接_circular-connection.svg" alt="互动">
+                </div>
+                <p class="weui-tabbar__label">互动</p>
+            </a>
+            <a href="my.html" class="weui-tabbar__item">
+                <div class="weui-tabbar__icon">
+                    <img src="images/download/我的_me.svg" alt="我的">
+                </div>
+                <p class="weui-tabbar__label">我的</p>
+            </a>
+        </div>
+    </div>
+
+    <!-- Zepto -->
+    <script src="https://zeptojs.com/zepto.min.js"></script>
+    <!-- WeUI JS -->
+    <script src="https://res.wx.qq.com/open/libs/weuijs/1.2.1/weui.min.js"></script>
+    <!-- Swiper JS -->
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <!-- 自定义脚本 -->
+    <script src="js/main.js"></script>
+</body>
+</html>
